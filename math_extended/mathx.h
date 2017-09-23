@@ -38,6 +38,12 @@ typedef struct  s_hvec
     float w;
 }               t_hvec;
 
+typedef struct  s_cnum
+{
+    float r;
+    float i;
+}               t_cnum;
+
 typedef float   matrix3[9];
 typedef float   matrix4[16];
 
@@ -81,5 +87,12 @@ float           m4_det(matrix4 m);
 int             m4_inverse(matrix4 m, matrix4 res);
 
 t_hvec          m4_mult_hv(matrix4 m, t_hvec *v);
+
+t_cnum          cn_create(float re, float im);
+t_cnum          cn_add(t_cnum *a, t_cnum *b);
+t_cnum          cn_sub(t_cnum *a, t_cnum *b);
+t_cnum          cn_mult(t_cnum *a, t_cnum *b);
+int             cn_div(t_cnum *a, t_cnum *b, t_cnum *res);
+
 
 #endif
