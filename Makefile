@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fdf
+NAME = fractol
 
 SRC_DIR =        ./srcs/
 OBJ_DIR =        ./obj/
@@ -22,9 +22,13 @@ LIBFT =         libft.a
 LIBMATHX =      libmathx.a
 LIBMLX =        libmlx.a
 
-SRC_FILES = 			main.c				\
-				rgb.c                           \
-				hsv.c
+SRC_FILES = 	main.c				\
+                fractol.c           \
+				rgb.c               \
+				hsv.c               \
+				palletes.c          \
+				render.c            \
+				sets.c
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
@@ -47,7 +51,7 @@ all: $(NAME)
 $(NAME): $(OBJ) $(LIBFT_DIR)/$(LIBFT) $(LIBMATHX_DIR)/$(LIBMATHX) $(LIBMLX_DIR)/$(LIBMLX)
 	     $(CC) $(OBJ) $(FLAGS) $(FRAMEWORKS) $(LIBFLAGS) -o $(NAME)
 
-$(OBJ_DIR)%.o : $(SRC_DIR)%.c
+$(OBJ_DIR)%.o : $(SRC_DIR)%.c ./includes/*.h
 	$(CC) $(FLAGS) $(INC) -c $< -o $@  
 
 $(LIBFT_DIR)/$(LIBFT):

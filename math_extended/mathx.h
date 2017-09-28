@@ -40,8 +40,8 @@ typedef struct  s_hvec
 
 typedef struct  s_cnum
 {
-    float r;
-    float i;
+    long double  r;
+    long double  i;
 }               t_cnum;
 
 typedef float   matrix3[9];

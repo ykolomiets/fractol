@@ -43,5 +43,5 @@ int     cn_div(t_cnum *a, t_cnum *b, t_cnum *res)
         return (1);
     res->r = (a->r * b->r + a->i * b->i) / (b->r * b->r + b->i * b->i);
     res->i = (a->i * b->r - a->r * b->i) / (b->r * b->r + b->i * b->i);
-    return (0);
+    return
 }
