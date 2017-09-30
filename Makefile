@@ -26,7 +26,7 @@ SRC_FILES = 	main.c				\
                 fractol.c           \
 				rgb.c               \
 				hsv.c               \
-				palletes.c          \
+				palettes.c          \
 				render.c            \
 				sets.c
 

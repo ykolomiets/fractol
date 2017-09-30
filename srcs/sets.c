@@ -1,5 +1,6 @@
 #include "base_structures.h"
 #include "sets.h"
+#include "mathx.h"
 
 static int  julia_pixel(int x, int y, t_fractol *all)
 {
@@ -11,8 +12,8 @@ static int  julia_pixel(int x, int y, t_fractol *all)
 
     c = all->julia_const;
     max_iter = all->max_iter;
-    new.r = 4 * ((long double)x - (long double)WIN_WIDTH / 2) / all->mapAreaX  + 4 * all->moveX ;
-    new.i = 4 * ((long double)y - (long double)WIN_HEIGHT / 2) / all->mapAreaY + 4 * all->moveY ;
+    new.r = 4 * ((double)x - (double)WIN_WIDTH / 2) / all->mapAreaX  + 4 * all->moveX ;
+    new.i = 4 * ((double)y - (double)WIN_HEIGHT / 2) / all->mapAreaY + 4 * all->moveY ;
     i = 0;
     while (i < max_iter && (new.r * new.r + new.i * new.i) < 4)
     {
@@ -48,11 +49,38 @@ static int  mandelbrot_pixel(int x, int y, t_fractol *all)
     return (i);
 }
 
+static int  mandelbrot_n_pixel(int x, int y, t_fractol *all)
+{
+    int     i;
+    t_cnum  new;
+    t_cnum  old;
+    t_cnum  pixel;
+    int     max_iter;
+
+    pixel.r =4 * (x - WIN_WIDTH / 2) / all->mapAreaX  + 4 * all->moveX ;
+    pixel.i =4 * (y - WIN_HEIGHT / 2) / all->mapAreaY + 4 * all->moveY ;
+    new.i = 0;
+    new.r = 0;
+    i = 0;
+    max_iter = all->max_iter;
+    while (i < max_iter && (new.r * new.r + new.i * new.i) < 4)
+    {
+        old = new;
+        new = cn_pow(&old, all->mandel_pow);
+        new.r += pixel.r;
+        new.i += pixel.i;
+        i++;
+    }
+    return (i);
+}
+
 t_set_pixel get_set_func(int n)
 {
     if (n == 0)
         return julia_pixel;
     else if (n == 1)
         return mandelbrot_pixel;
+    else if (n == 2)
+        return mandelbrot_n_pixel;
     return (0);
 }

@@ -1,6 +1,6 @@
 #include "render.h"
 #include "sets.h"
-#include "palletes.h"
+#include "palettes.h"
 #include <pthread.h>
 
 static void clean_image(t_fractol *all)
@@ -28,7 +28,7 @@ void        *render_part(void *param)
 
     p = (t_param *)param;
     set_pixel = get_set_func(p->all->set);
-    pallete = get_color_pallete(p->all->pallete);
+    pallete = get_color_palette(p->all->pallete);
     i = p->thread_num;
     while (i < WIN_WIDTH * WIN_HEIGHT)
     {

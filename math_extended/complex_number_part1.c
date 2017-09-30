@@ -39,9 +39,9 @@ t_cnum  cn_mult(t_cnum  *a, t_cnum *b)
 
 int     cn_div(t_cnum *a, t_cnum *b, t_cnum *res)
 {
-    if (fabsf(b->r) < 0.00005 && fabsf(b->i) < 0.00005)
+    if (fabsl(b->r) < 0.00005 && fabsl(b->i) < 0.00005)
         return (1);
     res->r = (a->r * b->r + a->i * b->i) / (b->r * b->r + b->i * b->i);
     res->i = (a->i * b->r - a->r * b->i) / (b->r * b->r + b->i * b->i);
-    return
+    return (0);
 }

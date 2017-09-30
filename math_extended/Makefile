@@ -19,7 +19,8 @@ SRC_FILES = vector2_part1.c \
             matrix3.c       \
             matrix4_part1.c \
             matrix4_part2.c \
-            complex_numbers.c
+            complex_number_part1.c  \
+            complex_number_part2.c
 
 OBJDIR = ./obj/
 

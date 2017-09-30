@@ -19,7 +19,7 @@
 
 # define WIN_WIDTH 800
 # define WIN_HEIGHT 600
-# define NUM_THREADS 4
+# define NUM_THREADS 8
 
 typedef struct      s_image
 {
@@ -39,11 +39,12 @@ typedef struct      s_fractol
     int             pallete;
     t_image         image;
     t_cnum          julia_const;
-    long double          zoom;
-    long double          moveY;
-    long double          moveX;
-    long double          mapAreaX;
-    long double          mapAreaY;
+    float           mandel_pow;
+    double          zoom;
+    double          moveY;
+    double          moveX;
+    double          mapAreaX;
+    double          mapAreaY;
 }                   t_fractol;
 
 #endif

@@ -10,7 +10,7 @@ int         keys_hook(int keycode, t_fractol *all)
     if (keycode == 53)
         exit(0);
     else if (keycode == 19)
-        render(all);
+        all->pallete = (all->pallete + 1) % 4;
     else if (keycode == 24)
         all->max_iter += 50;
     else if (keycode == 27)
@@ -22,11 +22,10 @@ int         keys_hook(int keycode, t_fractol *all)
 int         mouse_hook(int button, int x, int y, t_fractol *all)
 {
     if (button == 1)
-        all->set = (all->set + 1) % 2;
+        all->set = (all->set + 1) % 3;
     if (button == 5 && x > 0 && y > 0)
     {
         all->zoom *= 2.0;
-        printf("all->zoom = %Lf", all->zoom);
         all->moveX += -(WIN_WIDTH / 2.0 - x) / (float)all->mapAreaX / 2.0;
         all->moveY += -(WIN_HEIGHT / 2.0 - y) / (float)all->mapAreaY / 2.0;
         all->mapAreaX = WIN_WIDTH * all->zoom;
@@ -50,6 +49,10 @@ int         pressed_hook(int keycode, t_fractol *all)
 
     printf("Keycode: %d\n", keycode);
     c = all->julia_const;
+    if (keycode == 7 && all->mandel_pow < 4.98f)
+        all->mandel_pow += 0.02;
+    else if (keycode == 8 && all->mandel_pow > 0.07f)
+        all->mandel_pow -= 0.02;
     if (keycode == 123 && (c.r * c.r + c.i * c.i) < 4)
         c.r -= 0.01;
     else if (keycode == 124 && (c.r * c.r + c.i * c.i) < 4)
@@ -85,6 +88,7 @@ int         fractol_init(t_fractol *all)
     all->image.pixels = (int *)mlx_get_data_addr(all->image.image, &all->image.bpp,
                                           &all->image.size_line, &all->image.endian);
     all->julia_const = cn_create(0, 0);
+    all->mandel_pow = 0.05f;
     all->zoom = 1;
     all->moveY = 0;
     all->moveX = 0;
