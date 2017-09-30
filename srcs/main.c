@@ -6,7 +6,7 @@
 /*   By: ykolomie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/30 17:54:29 by ykolomie          #+#    #+#             */
-/*   Updated: 2017/09/30 17:54:44 by ykolomie         ###   ########.fr       */
+/*   Updated: 2017/09/30 18:53:43 by ykolomie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "libft.h"
 #include <stdlib.h>
 #include <unistd.h>
+#include <errno.h>
 
 static int	set_num(char *set_name)
 {
@@ -43,6 +44,22 @@ static void	precheck(int c, char **names)
 	}
 }
 
+static void	wait_childrean()
+{
+	int status;
+
+	status = 1;
+	while (status > 0)
+	{
+    	status = wait(0);
+    	if(status == -1 && errno != ECHILD)
+		{
+			ft_putendl("Error during wait()");
+        	exit(1);
+    	}
+	}
+}
+
 int			main(int argc, char **argv)
 {
 	int pid;
@@ -56,9 +73,9 @@ int			main(int argc, char **argv)
 		while (--argc)
 		{
 			pid = fork();
-			if (pid == 0)
+			if (pid > 0)
 				continue;
-			else if (pid > 0)
+			else if (pid == 0)
 				fractol(set_num(argv[argc]));
 			else
 			{
@@ -66,7 +83,7 @@ int			main(int argc, char **argv)
 				exit(1);
 			}
 		}
-		if (pid == 0)
-			wait(0);
+		if (pid > 0)
+			wait_childrean();
 	}
 }
