@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
+/*   hooks.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykolomie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/30 15:05:08 by ykolomie          #+#    #+#             */
-/*   Updated: 2017/09/30 18:21:01 by ykolomie         ###   ########.fr       */
+/*   Created: 2017/09/30 15:17:00 by ykolomie          #+#    #+#             */
+/*   Updated: 2017/09/30 15:17:01 by ykolomie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_H
-# define FRACTOL_H
+#ifndef HOOKS_H
+# define HOOKS_H
 
-# include "base_structures.h"
+# include "fractol.h"
 
-# define WIN_WIDTH 1400
-# define WIN_HEIGHT 800
-# define NUM_THREADS 4
-# define NUM_SETS 4
-
-void		fractol(int set);
-void		render(t_fractol *all);
-int			*get_color_palette(int num);
-t_set_pixel	get_set_func(int num);
+int keys_hook(int keycode, t_fractol *all);
+int pressed_hook(int keycode, t_fractol *all);
+int mouse_hook(int button, int x, int y, t_fractol *all);
+int expose_hook(t_fractol *all);
+int motion_hook(int x, int y, t_fractol *all);
 
 #endif

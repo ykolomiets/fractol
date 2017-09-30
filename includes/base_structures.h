@@ -5,46 +5,54 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykolomie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/28 18:10:40 by ykolomie          #+#    #+#             */
-/*   Updated: 2017/04/20 15:41:49 by ykolomie         ###   ########.fr       */
+/*   Created: 2017/09/30 15:09:18 by ykolomie          #+#    #+#             */
+/*   Updated: 2017/09/30 18:07:29 by ykolomie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BASE_STRUCTURES_H
 # define BASE_STRUCTURES_H
 
-#include "mathx.h"
-#include "mlx.h"
-#include "colors.h"
+# include "mathx.h"
+# include "mlx.h"
 
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 600
-# define NUM_THREADS 8
-
-typedef struct      s_image
+typedef struct		s_image
 {
-    void            *image;
-    int             *pixels; // TRY ANOTHER DEVICE
-    int             bpp;
-    int             size_line;
-    int             endian;
-}                   t_image;
+	void			*image;
+	int				*ps;
+	int				bpp;
+	int				sl;
+	int				endian;
+}					t_image;
 
-typedef struct      s_fractol
+typedef struct		s_fractol
 {
-    void            *mlx;
-    void            *window;
-    int             set;
-    int             max_iter;
-    int             pallete;
-    t_image         image;
-    t_cnum          julia_const;
-    float           mandel_pow;
-    double          zoom;
-    double          moveY;
-    double          moveX;
-    double          mapAreaX;
-    double          mapAreaY;
-}                   t_fractol;
+	void			*mlx;
+	void			*window;
+	int				set;
+	int				max_iter;
+	int				palette;
+	int				c_shift;
+	t_image			image;
+	t_cnum			julia_const;
+	int				change_julia_const;
+	int				change_julia_x;
+	int				change_julia_y;
+	t_cnum			change_julia_start;
+	float			mandel_pow;
+	double			zoom;
+	double			move_y;
+	double			move_x;
+	double			map_area_x;
+	double			map_area_y;
+}					t_fractol;
+
+typedef struct		s_param
+{
+	int				thread_num;
+	t_fractol		*all;
+}					t_param;
+
+typedef int			(*t_set_pixel)(int, int, t_fractol*);
 
 #endif

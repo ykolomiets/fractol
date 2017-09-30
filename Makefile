@@ -6,7 +6,7 @@
 #    By: ykolomie <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/14 16:54:48 by ykolomie          #+#    #+#              #
-#    Updated: 2017/09/30 14:59:55 by ykolomie         ###   ########.fr        #
+#    Updated: 2017/09/30 18:15:36 by ykolomie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,11 +24,10 @@ LIBMLX =        libmlx.a
 
 SRC_FILES = 	main.c				\
                 fractol.c           \
-				rgb.c               \
-				hsv.c               \
 				palettes.c          \
 				render.c            \
-				sets.c				
+				sets.c				\
+				hooks.c
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
@@ -51,7 +50,7 @@ all: $(NAME)
 $(NAME): $(OBJ) $(LIBFT_DIR)/$(LIBFT) $(LIBMATHX_DIR)/$(LIBMATHX) $(LIBMLX_DIR)/$(LIBMLX)
 	     $(CC) $(OBJ) $(FLAGS) $(FRAMEWORKS) $(LIBFLAGS) -o $(NAME)
 
-$(OBJ_DIR)%.o : $(SRC_DIR)%.c ./includes/*.h
+$(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	$(CC) $(FLAGS) $(INC) -c $< -o $@  
 
 $(OBJ): | $(OBJ_DIR)
