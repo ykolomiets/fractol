@@ -6,7 +6,7 @@
 #    By: ykolomie <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/10 20:24:37 by ykolomie          #+#    #+#              #
-#    Updated: 2017/04/20 16:17:17 by ykolomie         ###   ########.fr        #
+#    Updated: 2017/09/30 14:47:32 by ykolomie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,8 @@ SRC_FILES = vector2_part1.c \
             matrix3.c       \
             matrix4_part1.c \
             matrix4_part2.c \
-            complex_number_part1.c  \
-            complex_number_part2.c
+			complex_number_part1.c \
+			complex_number_part2.c 
 
 OBJDIR = ./obj/
 
@@ -42,10 +42,16 @@ $(NAME): $(OBJ)
 $(OBJDIR)%.o : $(SRCDIR)%.c
 	$(CC) $(FLAGS) -c $< -o $@
 
+$(OBJ): |$(OBJDIR)
+
+$(OBJDIR):
+	mkdir $(OBJDIR)
+
 clean:
 	rm -f $(OBJ)
 
 fclean: clean
 	rm -rf $(NAME)
+	rm -rf $(OBJDIR)
 
 re: clean all
