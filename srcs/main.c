@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykolomie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/30 17:54:29 by ykolomie          #+#    #+#             */
-/*   Updated: 2017/09/30 18:53:43 by ykolomie         ###   ########.fr       */
+/*   Created: 2017/10/01 18:51:27 by ykolomie          #+#    #+#             */
+/*   Updated: 2017/10/01 18:51:43 by ykolomie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,25 +38,25 @@ static void	precheck(int c, char **names)
 		if (set_num(names[c]) == -1)
 		{
 			ft_putendl("using: fractol [julia | mandel | mandel_n | ship]\n"
-                               "			   [julia | mandel | mandel_n | ship]");
+						"			   [julia | mandel | mandel_n | ship]");
 			exit(1);
 		}
 	}
 }
 
-static void	wait_childrean()
+static void	wait_children(void)
 {
 	int status;
 
 	status = 1;
 	while (status > 0)
 	{
-    	status = wait(0);
-    	if(status == -1 && errno != ECHILD)
+		status = wait(0);
+		if (status == -1 && errno != ECHILD)
 		{
 			ft_putendl("Error during wait()");
-        	exit(1);
-    	}
+			exit(1);
+		}
 	}
 }
 
@@ -84,6 +84,6 @@ int			main(int argc, char **argv)
 			}
 		}
 		if (pid > 0)
-			wait_childrean();
+			wait_children();
 	}
 }

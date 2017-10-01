@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
+/*   ft_count_word.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykolomie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/30 15:05:08 by ykolomie          #+#    #+#             */
-/*   Updated: 2017/09/30 18:21:01 by ykolomie         ###   ########.fr       */
+/*   Created: 2016/12/01 19:42:11 by ykolomie          #+#    #+#             */
+/*   Updated: 2016/12/01 19:58:26 by ykolomie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_H
-# define FRACTOL_H
+#include "libft.h"
 
-# include "base_structures.h"
+int	ft_count_word(char const *s, char delimetr)
+{
+	int in_word;
+	int	res;
 
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 600
-# define NUM_THREADS 4
-# define NUM_SETS 4
-
-void		fractol(int set);
-void		render(t_fractol *all);
-int			*get_color_palette(int num);
-t_set_pixel	get_set_func(int num);
-
-#endif
+	if (!s)
+		return (0);
+	res = 0;
+	in_word = 0;
+	while (*s)
+	{
+		if (*s == delimetr)
+			in_word = 0;
+		else if (!in_word)
+		{
+			in_word = 1;
+			res++;
+		}
+		s++;
+	}
+	return (res);
+}

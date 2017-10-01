@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
+/*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykolomie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/30 15:05:08 by ykolomie          #+#    #+#             */
-/*   Updated: 2017/09/30 18:21:01 by ykolomie         ###   ########.fr       */
+/*   Created: 2016/11/30 22:19:41 by ykolomie          #+#    #+#             */
+/*   Updated: 2016/12/01 19:39:51 by ykolomie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_H
-# define FRACTOL_H
+#include "libft.h"
 
-# include "base_structures.h"
+char	*ft_strncat(char *dest, const char *src, size_t n)
+{
+	size_t	i;
+	char	*res;
 
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 600
-# define NUM_THREADS 4
-# define NUM_SETS 4
-
-void		fractol(int set);
-void		render(t_fractol *all);
-int			*get_color_palette(int num);
-t_set_pixel	get_set_func(int num);
-
-#endif
+	res = dest;
+	while (*dest)
+		dest++;
+	i = 0;
+	while (src[i] && i < n)
+	{
+		*dest = src[i++];
+		dest++;
+	}
+	*dest = '\0';
+	return (res);
+}

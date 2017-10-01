@@ -5,12 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykolomie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/30 18:01:44 by ykolomie          #+#    #+#             */
-/*   Updated: 2017/09/30 18:01:46 by ykolomie         ###   ########.fr       */
+/*   Created: 2017/10/01 18:47:58 by ykolomie          #+#    #+#             */
+/*   Updated: 2017/10/01 18:47:59 by ykolomie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include "libft.h"
 #include <pthread.h>
 
 static void	clean_image(t_fractol *all)

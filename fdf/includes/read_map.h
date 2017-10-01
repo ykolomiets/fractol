@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
+/*   read_map.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykolomie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/30 15:05:08 by ykolomie          #+#    #+#             */
-/*   Updated: 2017/09/30 18:21:01 by ykolomie         ###   ########.fr       */
+/*   Created: 2017/09/30 11:07:03 by ykolomie          #+#    #+#             */
+/*   Updated: 2017/09/30 11:07:04 by ykolomie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_H
-# define FRACTOL_H
+#ifndef READ_MAP_H
+# define READ_MAP_H
 
 # include "base_structures.h"
 
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 600
-# define NUM_THREADS 4
-# define NUM_SETS 4
-
-void		fractol(int set);
-void		render(t_fractol *all);
-int			*get_color_palette(int num);
-t_set_pixel	get_set_func(int num);
+int		read_map(char *map_file, t_map *map);
+t_line	*form_lines(t_vertex **verts, int *lines_count, int rows, int cols);
+void	find_max_min_z(t_vertex **verts, int rows, int cols, t_map *map);
 
 #endif

@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykolomie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/30 15:05:08 by ykolomie          #+#    #+#             */
-/*   Updated: 2017/09/30 18:21:01 by ykolomie         ###   ########.fr       */
+/*   Created: 2016/11/30 22:07:37 by ykolomie          #+#    #+#             */
+/*   Updated: 2016/11/30 22:52:17 by ykolomie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_H
-# define FRACTOL_H
+#include "libft.h"
+#include <stdlib.h>
 
-# include "base_structures.h"
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+{
+	char	*res;
+	size_t	len;
 
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 600
-# define NUM_THREADS 4
-# define NUM_SETS 4
-
-void		fractol(int set);
-void		render(t_fractol *all);
-int			*get_color_palette(int num);
-t_set_pixel	get_set_func(int num);
-
-#endif
+	if (!(s && f))
+		return (NULL);
+	len = ft_strlen(s);
+	res = (char*)malloc(sizeof(char) * (len + 1));
+	if (!res)
+		return (NULL);
+	res[len] = '\0';
+	while (len--)
+		res[len] = (*f)((unsigned int)len, s[len]);
+	return (res);
+}

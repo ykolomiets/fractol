@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
+/*   vector2_part1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykolomie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/30 15:05:08 by ykolomie          #+#    #+#             */
-/*   Updated: 2017/09/30 18:21:01 by ykolomie         ###   ########.fr       */
+/*   Created: 2017/09/30 10:12:11 by ykolomie          #+#    #+#             */
+/*   Updated: 2017/09/30 10:12:12 by ykolomie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_H
-# define FRACTOL_H
+#include "mathx.h"
+#include <stdlib.h>
 
-# include "base_structures.h"
+t_vec2	v2_create(float x, float y)
+{
+	return (t_vec2){x, y};
+}
 
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 600
-# define NUM_THREADS 4
-# define NUM_SETS 4
+t_vec2	v2_add(t_vec2 a, t_vec2 b)
+{
+	return (t_vec2){a.x + b.x, a.y + b.y};
+}
 
-void		fractol(int set);
-void		render(t_fractol *all);
-int			*get_color_palette(int num);
-t_set_pixel	get_set_func(int num);
-
-#endif
+t_vec2	v2_sub(t_vec2 a, t_vec2 b)
+{
+	return (t_vec2){a.x - b.x, a.y - b.y};
+}

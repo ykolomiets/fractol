@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
+/*   camera_transformations.h                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykolomie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/30 15:05:08 by ykolomie          #+#    #+#             */
-/*   Updated: 2017/09/30 18:21:01 by ykolomie         ###   ########.fr       */
+/*   Created: 2017/09/30 11:03:01 by ykolomie          #+#    #+#             */
+/*   Updated: 2017/09/30 11:07:31 by ykolomie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_H
-# define FRACTOL_H
+#ifndef CAMERA_TRANSFORMATIONS_H
+# define CAMERA_TRANSFORMATIONS_H
 
+# include "mathx.h"
 # include "base_structures.h"
 
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 600
-# define NUM_THREADS 4
-# define NUM_SETS 4
-
-void		fractol(int set);
-void		render(t_fractol *all);
-int			*get_color_palette(int num);
-t_set_pixel	get_set_func(int num);
+void	camera_move(t_camera *camera, int forward);
+void	camera_roll(t_camera *camera, float angle);
+void	camera_pitch(t_camera *camera, float angle);
+void	camera_yaw(t_camera *camera, float angle);
 
 #endif

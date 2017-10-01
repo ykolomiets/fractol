@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykolomie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/30 15:05:08 by ykolomie          #+#    #+#             */
-/*   Updated: 2017/09/30 18:21:01 by ykolomie         ###   ########.fr       */
+/*   Created: 2016/11/30 22:17:54 by ykolomie          #+#    #+#             */
+/*   Updated: 2016/12/01 19:39:35 by ykolomie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_H
-# define FRACTOL_H
+#include "libft.h"
 
-# include "base_structures.h"
+void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
+{
+	unsigned char	*t_dest;
+	unsigned char	*t_src;
 
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 600
-# define NUM_THREADS 4
-# define NUM_SETS 4
-
-void		fractol(int set);
-void		render(t_fractol *all);
-int			*get_color_palette(int num);
-t_set_pixel	get_set_func(int num);
-
-#endif
+	t_dest = (unsigned char*)dest;
+	t_src = (unsigned char*)src;
+	if (n)
+	{
+		while (n--)
+			if ((*t_dest++ = *t_src++) == (unsigned char)c)
+				return (t_dest);
+	}
+	return (NULL);
+}

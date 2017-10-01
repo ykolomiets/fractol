@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                          :+:      :+:    :+:   */
+/*   hvector.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykolomie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/30 15:05:08 by ykolomie          #+#    #+#             */
-/*   Updated: 2017/09/30 18:21:01 by ykolomie         ###   ########.fr       */
+/*   Created: 2017/09/30 10:00:41 by ykolomie          #+#    #+#             */
+/*   Updated: 2017/09/30 10:00:43 by ykolomie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FRACTOL_H
-# define FRACTOL_H
+#include "mathx.h"
+#include <math.h>
 
-# include "base_structures.h"
+t_hvec	hv_create_point(float x, float y, float z)
+{
+	return (t_hvec){x, y, z, 1};
+}
 
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 600
-# define NUM_THREADS 4
-# define NUM_SETS 4
+t_hvec	hv_create_direction(float x, float y, float z)
+{
+	return (t_hvec){x, y, z, 0};
+}
 
-void		fractol(int set);
-void		render(t_fractol *all);
-int			*get_color_palette(int num);
-t_set_pixel	get_set_func(int num);
-
-#endif
+t_hvec	hv_normalize(t_hvec v)
+{
+	if (fabsf(v.w) > 0.00005)
+	{
+		v.x /= v.w;
+		v.y /= v.w;
+		v.z /= v.w;
+		v.w = 1;
+	}
+	return (v);
+}

@@ -6,31 +6,38 @@
 #    By: ykolomie <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/14 16:54:48 by ykolomie          #+#    #+#              #
-#    Updated: 2017/10/01 12:53:05 by ykolomie         ###   ########.fr        #
+#    Updated: 2017/10/01 12:33:45 by ykolomie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fractol
+NAME = fdf
 
 SRC_DIR =        ./srcs/
 OBJ_DIR =        ./obj/
 LIBFT_DIR =      ./libft
 LIBMATHX_DIR =   ./math_extended
 LIBMLX_DIR =     ./minilibx_macos
-FDF_DIR =		 ./fdf
 
 LIBFT =         libft.a
 LIBMATHX =      libmathx.a
 LIBMLX =        libmlx.a
-FDF = 			fdf
 
-SRC_FILES = 	main.c				\
-                fractol.c           \
-				palettes.c          \
-				render.c            \
-				sets.c				\
-				hooks.c             \
-				fractol_fdf.c
+SRC_FILES = 	main.c							\
+				fdf.c							\
+				read_map_part1.c                \
+				read_map_part2.c                \
+				viewing_transformations.c		\
+				rasterization.c					\
+				camera_transformations.c		\
+				world_transformations.c			\
+				matrix_transformations_part1.c	\
+				matrix_transformations_part2.c	\
+				matrix_transformations_part3.c	\
+				clipping.c                      \
+				render.c                        \
+				rgb.c                           \
+				hsv.c							\
+				hooks.c
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
@@ -46,12 +53,14 @@ FRAMEWORKS = -framework OpenGL -framework AppKit
 
 FLAGS = -Werror -Wextra -Wall
 
+OPT = -O3
+
 CC = gcc
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(LIBFT_DIR)/$(LIBFT) $(LIBMATHX_DIR)/$(LIBMATHX) $(LIBMLX_DIR)/$(LIBMLX) $(FDF_DIR)/$(FDF)
-	     $(CC) $(OBJ) $(FLAGS) $(FRAMEWORKS) $(LIBFLAGS) -o $(NAME)
+$(NAME): $(OBJ) $(LIBFT_DIR)/$(LIBFT) $(LIBMATHX_DIR)/$(LIBMATHX) $(LIBMLX_DIR)/$(LIBMLX)
+	     $(CC) $(OBJ) $(FLAGS) $(OPT) $(FRAMEWORKS) $(LIBFLAGS) -o $(NAME)
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	$(CC) $(FLAGS) $(INC) -c $< -o $@  
@@ -69,9 +78,6 @@ $(LIBMATHX_DIR)/$(LIBMATHX):
 	
 $(LIBMLX_DIR)/$(LIBMLX):
 	make -s -C $(LIBMLX_DIR)/
-
-$(FDF_DIR)/$(FDF):
-	make -s -C $(FDF_DIR)/
 	
 clean: libclean
 	rm -rf $(OBJ)
@@ -80,15 +86,13 @@ fclean: clean libfclean
 	rm -rf $(NAME)
 
 libclean:
-	make clean -C $(LIBFT_DIR)
-	make clean -C $(LIBMATHX_DIR)
-	make clean -C $(LIBMLX_DIR)
-	make clean -C $(FDF_DIR)
+	make clean -C $(LIBFT_DIR)/
+	make clean -C $(LIBMATHX_DIR)/
+	make clean -C $(LIBMLX_DIR)/
 
 libfclean:
-	make fclean -C $(LIBFT_DIR)
-	make fclean -C $(LIBMATHX_DIR)
-	make clean  -C $(LIBMLX_DIR)
-	make clean  -C $(FDF_DIR)
+	make fclean -C $(LIBFT_DIR)/
+	make fclean -C $(LIBMATHX_DIR)/
+	make clean -C $(LIBMLX_DIR)/
 
 re: fclean libfclean all

@@ -5,15 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykolomie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/30 17:50:50 by ykolomie          #+#    #+#             */
-/*   Updated: 2017/09/30 17:50:51 by ykolomie         ###   ########.fr       */
+/*   Created: 2017/10/01 18:46:18 by ykolomie          #+#    #+#             */
+/*   Updated: 2017/10/01 18:47:26 by ykolomie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hooks.h"
+#include "fractol_fdf.h"
 #include "mathx.h"
 #include "base_structures.h"
-#include <stdio.h>
 #include <stdlib.h>
 
 int	motion_hook(int x, int y, t_fractol *all)
@@ -36,6 +36,8 @@ int	keys_hook(int keycode, t_fractol *all)
 {
 	if (keycode == 53)
 		exit(0);
+	else if (keycode == 35)
+		fractol_3d(all);
 	else if (keycode == 36)
 	{
 		all->julia_const = cn_create(0, 0);
@@ -64,10 +66,9 @@ int	mouse_hook(int button, int x, int y, t_fractol *all)
 		all->change_julia_y = y;
 		all->change_julia_start = all->julia_const;
 	}
-	if (button == 5 && x > 0 && y > 0)
+	if (button == 5 && x > 0 && y > 0 && all->zoom <= 1099511627776.0)
 	{
-        if (all->zoom >= 2199023255552.000000)
-            return (0);
+		all->zoom *= 2.0;
 		all->move_x += -(WIN_WIDTH / 2.0 - x) / (float)all->map_area_x / 2.0;
 		all->move_y += -(WIN_HEIGHT / 2.0 - y) / (float)all->map_area_y / 2.0;
 		all->map_area_x = WIN_WIDTH * all->zoom;
