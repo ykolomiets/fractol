@@ -18,7 +18,7 @@
 
 static int	set_num(char *set_name)
 {
-	static	char	*all[NUM_SETS] = {"julia", "mandel", "mandel_n", "ship"};
+	static	char	*all[NUM_SETS] = {"julia", "mandel", "mandel_n", "ship", "tricorn"};
 	int				i;
 
 	i = 0;
@@ -37,8 +37,8 @@ static void	precheck(int c, char **names)
 	{
 		if (set_num(names[c]) == -1)
 		{
-			ft_putendl("using: fractol [julia | mandel | mandel_n | ship]\n"
-						"			   [julia | mandel | mandel_n | ship]");
+			ft_putendl("using: fractol [julia | mandel | mandel_n | ship | tricorn]\n"
+						"			   [julia | mandel | mandel_n | ship | tricorn]");
 			exit(1);
 		}
 	}

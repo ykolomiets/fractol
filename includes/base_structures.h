@@ -47,12 +47,12 @@ typedef struct		s_fractol
 	double			map_area_y;
 }					t_fractol;
 
+typedef int			(*t_set_pixel)(int, int, t_fractol*);
+
 typedef struct		s_param
 {
 	int				thread_num;
 	t_fractol		*all;
 }					t_param;
-
-typedef int			(*t_set_pixel)(int, int, t_fractol*);
 
 #endif

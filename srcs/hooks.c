@@ -27,8 +27,8 @@ int	motion_hook(int x, int y, t_fractol *all)
 			all->julia_const.i = all->change_julia_start.i +
 					((double)y - all->change_julia_y) / WIN_HEIGHT;
 		}
+        render(all);
 	}
-	render(all);
 	return (0);
 }
 

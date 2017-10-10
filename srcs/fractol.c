@@ -13,6 +13,22 @@
 #include "libft.h"
 #include "hooks.h"
 #include "fractol.h"
+#include "sets.h"
+
+t_set_pixel	get_set_func(int n)
+{
+    if (n == 0)
+        return (julia_pixel);
+    else if (n == 1)
+        return (mandelbrot_pixel);
+    else if (n == 2)
+        return (mandelbrot_n_pixel);
+    else if (n == 3)
+        return (ship_pixel);
+    else if (n == 4)
+        return (tricorn_pixel);
+    return (0);
+}
 
 int		fractol_init(t_fractol *all)
 {

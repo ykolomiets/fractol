@@ -11,9 +11,10 @@
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include "sets.h"
 #include "mathx.h"
 
-static int	julia_pixel(int x, int y, t_fractol *all)
+int	julia_pixel(int x, int y, t_fractol *all)
 {
 	int		i;
 	int		max_iter;
@@ -38,7 +39,7 @@ static int	julia_pixel(int x, int y, t_fractol *all)
 	return (i);
 }
 
-static int	mandelbrot_pixel(int x, int y, t_fractol *all)
+int	mandelbrot_pixel(int x, int y, t_fractol *all)
 {
 	int		i;
 	t_cnum	new;
@@ -64,7 +65,7 @@ static int	mandelbrot_pixel(int x, int y, t_fractol *all)
 	return (i);
 }
 
-static int	ship_pixel(int x, int y, t_fractol *all)
+int	ship_pixel(int x, int y, t_fractol *all)
 {
 	int		i;
 	t_cnum	new;
@@ -88,7 +89,7 @@ static int	ship_pixel(int x, int y, t_fractol *all)
 	return (i);
 }
 
-static int	mandelbrot_n_pixel(int x, int y, t_fractol *all)
+int	mandelbrot_n_pixel(int x, int y, t_fractol *all)
 {
 	int		i;
 	t_cnum	new;
@@ -97,9 +98,9 @@ static int	mandelbrot_n_pixel(int x, int y, t_fractol *all)
 	int		max_iter;
 
 	pixel.r = 4 * (x - WIN_WIDTH / 2) / all->map_area_x + 4 * all->move_x;
-	pixel.i = 4 * (y - WIN_HEIGHT / 2) / all->map_area_y + 4 * all->move_y;
-	new.i = 0;
-	new.r = 0;
+    pixel.i = 4 * (y - WIN_HEIGHT / 2) / all->map_area_y + 4 * all->move_y;
+    new.i = 0;
+    new.r = 0;
 	i = 0;
 	max_iter = all->max_iter;
 	while (i < max_iter && (new.r * new.r + new.i * new.i) < 4)
@@ -113,15 +114,26 @@ static int	mandelbrot_n_pixel(int x, int y, t_fractol *all)
 	return (i);
 }
 
-t_set_pixel	get_set_func(int n)
+int	tricorn_pixel(int x, int y, t_fractol *all)
 {
-	if (n == 0)
-		return (julia_pixel);
-	else if (n == 1)
-		return (mandelbrot_pixel);
-	else if (n == 2)
-		return (mandelbrot_n_pixel);
-	else if (n == 3)
-		return (ship_pixel);
-	return (0);
+	int 	i;
+	t_cnum	new;
+	t_cnum	c;
+    double  temp;
+	int 	max_iter;
+
+	c.r = 4 * (x - WIN_WIDTH / 2) / all->map_area_x + 4 * all->move_x;
+	c.i = 4 * (y - WIN_HEIGHT / 2) / all->map_area_y + 4 * all->move_y;
+	i = 0;
+	new.i = 0;
+	new.r = 0;
+	max_iter = all->max_iter;
+	while (i < max_iter && (new.r * new.r + new.i * new.i) < 4)
+	{
+        temp = new.r;
+        new.r = new.r * new.r - new.i * new.i + c.r;
+        new.i = -2 * new.i * temp + c.i;
+		i++;
+	}
+	return (i);
 }

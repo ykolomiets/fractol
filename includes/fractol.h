@@ -18,7 +18,7 @@
 # define WIN_WIDTH 800
 # define WIN_HEIGHT 600
 # define NUM_THREADS 4
-# define NUM_SETS 4
+# define NUM_SETS 5
 
 void		fractol(int set);
 void		render(t_fractol *all);
