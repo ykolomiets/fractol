@@ -5,12 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykolomie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/30 18:05:30 by ykolomie          #+#    #+#             */
-/*   Updated: 2017/09/30 18:05:32 by ykolomie         ###   ########.fr       */
+/*   Created: 2017/10/10 13:35:41 by ykolomie          #+#    #+#             */
+/*   Updated: 2017/10/10 13:35:44 by ykolomie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
 #include "sets.h"
 #include "mathx.h"
 
@@ -98,9 +97,9 @@ int	mandelbrot_n_pixel(int x, int y, t_fractol *all)
 	int		max_iter;
 
 	pixel.r = 4 * (x - WIN_WIDTH / 2) / all->map_area_x + 4 * all->move_x;
-    pixel.i = 4 * (y - WIN_HEIGHT / 2) / all->map_area_y + 4 * all->move_y;
-    new.i = 0;
-    new.r = 0;
+	pixel.i = 4 * (y - WIN_HEIGHT / 2) / all->map_area_y + 4 * all->move_y;
+	new.i = 0;
+	new.r = 0;
 	i = 0;
 	max_iter = all->max_iter;
 	while (i < max_iter && (new.r * new.r + new.i * new.i) < 4)
@@ -116,11 +115,11 @@ int	mandelbrot_n_pixel(int x, int y, t_fractol *all)
 
 int	tricorn_pixel(int x, int y, t_fractol *all)
 {
-	int 	i;
+	int		i;
 	t_cnum	new;
 	t_cnum	c;
-    double  temp;
-	int 	max_iter;
+	double	temp;
+	int		max_iter;
 
 	c.r = 4 * (x - WIN_WIDTH / 2) / all->map_area_x + 4 * all->move_x;
 	c.i = 4 * (y - WIN_HEIGHT / 2) / all->map_area_y + 4 * all->move_y;
@@ -130,9 +129,9 @@ int	tricorn_pixel(int x, int y, t_fractol *all)
 	max_iter = all->max_iter;
 	while (i < max_iter && (new.r * new.r + new.i * new.i) < 4)
 	{
-        temp = new.r;
-        new.r = new.r * new.r - new.i * new.i + c.r;
-        new.i = -2 * new.i * temp + c.i;
+		temp = new.r;
+		new.r = new.r * new.r - new.i * new.i + c.r;
+		new.i = -2 * new.i * temp + c.i;
 		i++;
 	}
 	return (i);

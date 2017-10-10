@@ -6,7 +6,7 @@
 /*   By: ykolomie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/01 18:46:18 by ykolomie          #+#    #+#             */
-/*   Updated: 2017/10/01 18:47:26 by ykolomie         ###   ########.fr       */
+/*   Updated: 2017/10/10 13:36:03 by ykolomie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	motion_hook(int x, int y, t_fractol *all)
 			all->julia_const.i = all->change_julia_start.i +
 					((double)y - all->change_julia_y) / WIN_HEIGHT;
 		}
-        render(all);
+		render(all);
 	}
 	return (0);
 }

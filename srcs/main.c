@@ -6,7 +6,7 @@
 /*   By: ykolomie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/01 18:51:27 by ykolomie          #+#    #+#             */
-/*   Updated: 2017/10/01 18:51:43 by ykolomie         ###   ########.fr       */
+/*   Updated: 2017/10/10 13:36:38 by ykolomie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 
 static int	set_num(char *set_name)
 {
-	static	char	*all[NUM_SETS] = {"julia", "mandel", "mandel_n", "ship", "tricorn"};
+	static	char	*all[NUM_SETS] = {"julia", "mandel",
+										"mandel_n", "ship", "tricorn"};
 	int				i;
 
 	i = 0;
@@ -37,8 +38,10 @@ static void	precheck(int c, char **names)
 	{
 		if (set_num(names[c]) == -1)
 		{
-			ft_putendl("using: fractol [julia | mandel | mandel_n | ship | tricorn]\n"
-						"			   [julia | mandel | mandel_n | ship | tricorn]");
+			ft_putendl("using: fractol [julia | mandel | mandel_n |"
+												"ship | tricorn]\n"
+						"			   [julia | mandel | mandel_n |"
+												"ship | tricorn]");
 			exit(1);
 		}
 	}

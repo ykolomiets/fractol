@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ykolomie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/09/30 17:46:54 by ykolomie          #+#    #+#             */
-/*   Updated: 2017/09/30 17:46:55 by ykolomie         ###   ########.fr       */
+/*   Created: 2017/10/10 13:34:54 by ykolomie          #+#    #+#             */
+/*   Updated: 2017/10/10 13:34:57 by ykolomie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,20 @@
 
 t_set_pixel	get_set_func(int n)
 {
-    if (n == 0)
-        return (julia_pixel);
-    else if (n == 1)
-        return (mandelbrot_pixel);
-    else if (n == 2)
-        return (mandelbrot_n_pixel);
-    else if (n == 3)
-        return (ship_pixel);
-    else if (n == 4)
-        return (tricorn_pixel);
-    return (0);
+	if (n == 0)
+		return (julia_pixel);
+	else if (n == 1)
+		return (mandelbrot_pixel);
+	else if (n == 2)
+		return (mandelbrot_n_pixel);
+	else if (n == 3)
+		return (ship_pixel);
+	else if (n == 4)
+		return (tricorn_pixel);
+	return (0);
 }
 
-int		fractol_init(t_fractol *all)
+int			fractol_init(t_fractol *all)
 {
 	all->mlx = mlx_init();
 	if (!all->mlx)
@@ -57,7 +57,7 @@ int		fractol_init(t_fractol *all)
 	return (0);
 }
 
-void	fractol(int set_num)
+void		fractol(int set_num)
 {
 	t_fractol	all;
 
