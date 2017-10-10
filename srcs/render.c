@@ -50,7 +50,7 @@ static void *render_part(void *param)
 	pthread_exit(NULL);
 }
 
-void		render_pthread(t_fractol *all)
+void		render_cpu(t_fractol *all)
 {
 	pthread_t		threads[NUM_THREADS];
 	pthread_attr_t	attr;
@@ -105,4 +105,12 @@ void        render_gpu(t_fractol *all)
         mlx_put_image_to_window(all->mlx, all->window, all->image.image, 0, 0);
         ft_putendl("GPU RENDER");
     }
+}
+
+void        render(t_fractol *all)
+{
+    if (all->render_unit == GPU)
+		render_gpu(all);
+    else if (all->render_unit == CPU)
+		render_cpu(all);
 }

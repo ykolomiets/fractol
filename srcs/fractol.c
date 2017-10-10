@@ -39,14 +39,12 @@ int     opencl_init(t_opencl *opencl, int set_num)
 {
     cl_int          ret;
     cl_uint          temp;
-    cl_device_id    devices[2];
     size_t          kernel_str_size;
     char            *kernel_str;
 
     ft_putendl("opencl_init");
     ret = clGetPlatformIDs(1, &opencl->platform_id, &temp);
-    ret = clGetDeviceIDs(opencl->platform_id, CL_DEVICE_TYPE_GPU, 2, devices, &temp);
-    opencl->device_id = devices[1];
+    ret = clGetDeviceIDs(opencl->platform_id, CL_DEVICE_TYPE_GPU, 1, &opencl->device_id, &temp);
     opencl->context = clCreateContext(NULL, 1, &opencl->device_id, NULL, NULL, &ret);
     opencl->command_queue = clCreateCommandQueue(opencl->context, opencl->device_id, 0, &ret);
     read_kernel(set_num, &kernel_str, &kernel_str_size);
@@ -61,6 +59,7 @@ int     opencl_init(t_opencl *opencl, int set_num)
     opencl->global_size[1] = WIN_HEIGHT;
     opencl->local_size[0] = 16;
     opencl->local_size[1] = 16;
+    ft_putnbr(ret);
     if (ret)
         return (1);
     return (0);
@@ -90,7 +89,9 @@ int		fractol_init(t_fractol *all)
 	all->max_iter = 100;
 	all->palette = 0;
 	all->c_shift = 0;
-    opencl_init(&all->opencl, all->set);
+    all->render_unit = CPU;
+    if (!opencl_init(&all->opencl, all->set))
+        all->render_unit = GPU;
 	return (0);
 }
 
@@ -101,7 +102,7 @@ void	fractol(int set_num)
 	all.set = set_num;
 	if (!fractol_init(&all))
 	{
-        render_pthread(&all);
+        render(&all);
 		mlx_mouse_hook(all.window, mouse_hook, &all);
 		mlx_key_hook(all.window, keys_hook, &all);
 		mlx_hook(all.window, 2, 0, pressed_hook, &all);

@@ -17,6 +17,9 @@
 # include "mlx.h"
 # include <OpenCL/opencl.h>
 
+# define CPU 0
+# define GPU 1
+
 typedef struct		s_image
 {
 	void			*image;
@@ -60,6 +63,7 @@ typedef struct		s_fractol
 	double			map_area_x;
 	double			map_area_y;
     t_opencl        opencl;
+	int				render_unit;
 }					t_fractol;
 
 typedef struct		s_param
