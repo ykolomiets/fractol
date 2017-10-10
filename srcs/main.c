@@ -74,9 +74,9 @@ int			main(int argc, char **argv)
 		{
 			pid = fork();
 			if (pid > 0)
-				continue;
-			else if (pid == 0)
 				fractol(set_num(argv[argc]));
+			else if (pid == 0)
+				continue;
 			else
 			{
 				ft_putendl("ERROR: fork() failed");

@@ -14,6 +14,58 @@
 #include "hooks.h"
 #include "fractol.h"
 
+void    read_kernel(int set_num, char **str, size_t *size)
+{
+    static char*    kernels[] = {"srcs/julia.cl", "srcs/mandelbrot.cl", "srcs/ship.cl"};
+    int             fd;
+
+    ft_putendl("read_kernel");
+    fd = open(kernels[set_num], O_RDONLY);
+    if (fd > 0)
+    {
+        *str = read_file(fd);
+        *size = ft_strlen(*str);
+        ft_putendl(*str);
+    }
+    else
+    {
+        *str = NULL;
+        *size = 0;
+    }
+    close(fd);
+}
+
+int     opencl_init(t_opencl *opencl, int set_num)
+{
+    cl_int          ret;
+    cl_uint          temp;
+    cl_device_id    devices[2];
+    size_t          kernel_str_size;
+    char            *kernel_str;
+
+    ft_putendl("opencl_init");
+    ret = clGetPlatformIDs(1, &opencl->platform_id, &temp);
+    ret = clGetDeviceIDs(opencl->platform_id, CL_DEVICE_TYPE_GPU, 2, devices, &temp);
+    opencl->device_id = devices[1];
+    opencl->context = clCreateContext(NULL, 1, &opencl->device_id, NULL, NULL, &ret);
+    opencl->command_queue = clCreateCommandQueue(opencl->context, opencl->device_id, 0, &ret);
+    read_kernel(set_num, &kernel_str, &kernel_str_size);
+    if (!kernel_str)
+        return (1);
+    opencl->program = clCreateProgramWithSource(opencl->context, 1, (const char **)&kernel_str,
+                                                (const size_t *)&kernel_str_size, &ret);
+    ret = clBuildProgram(opencl->program, 1, &opencl->device_id, NULL, NULL, NULL);
+    opencl->kernel = clCreateKernel(opencl->program, "julia", &ret);
+    opencl->memobj = clCreateBuffer(opencl->context, CL_MEM_READ_WRITE, WIN_WIDTH * WIN_HEIGHT * sizeof(int), NULL, &ret);
+    opencl->global_size[0] = WIN_WIDTH;
+    opencl->global_size[1] = WIN_HEIGHT;
+    opencl->local_size[0] = 16;
+    opencl->local_size[1] = 16;
+    if (ret)
+        return (1);
+    return (0);
+}
+
 int		fractol_init(t_fractol *all)
 {
 	all->mlx = mlx_init();
@@ -38,6 +90,7 @@ int		fractol_init(t_fractol *all)
 	all->max_iter = 100;
 	all->palette = 0;
 	all->c_shift = 0;
+    opencl_init(&all->opencl, all->set);
 	return (0);
 }
 
@@ -48,7 +101,7 @@ void	fractol(int set_num)
 	all.set = set_num;
 	if (!fractol_init(&all))
 	{
-		render(&all);
+        render_pthread(&all);
 		mlx_mouse_hook(all.window, mouse_hook, &all);
 		mlx_key_hook(all.window, keys_hook, &all);
 		mlx_hook(all.window, 2, 0, pressed_hook, &all);

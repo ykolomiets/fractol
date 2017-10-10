@@ -15,6 +15,7 @@
 
 # include "mathx.h"
 # include "mlx.h"
+# include <OpenCL/opencl.h>
 
 typedef struct		s_image
 {
@@ -24,6 +25,19 @@ typedef struct		s_image
 	int				sl;
 	int				endian;
 }					t_image;
+
+typedef struct      s_opencl
+{
+    cl_platform_id  platform_id;
+    cl_device_id    device_id;
+    cl_context      context;
+    cl_command_queue command_queue;
+    cl_program      program;
+    cl_kernel       kernel;
+    cl_mem          memobj;
+	size_t 			global_size[3];
+	size_t 			local_size[3];
+}                   t_opencl;
 
 typedef struct		s_fractol
 {
@@ -45,6 +59,7 @@ typedef struct		s_fractol
 	double			move_x;
 	double			map_area_x;
 	double			map_area_y;
+    t_opencl        opencl;
 }					t_fractol;
 
 typedef struct		s_param

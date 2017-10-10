@@ -15,13 +15,14 @@
 
 # include "base_structures.h"
 
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 600
+# define WIN_WIDTH 512
+# define WIN_HEIGHT 256
 # define NUM_THREADS 4
 # define NUM_SETS 4
 
 void		fractol(int set);
-void		render(t_fractol *all);
+void		render_pthread(t_fractol *all);
+void        render_gpu(t_fractol *all);
 int			*get_color_palette(int num);
 t_set_pixel	get_set_func(int num);
 

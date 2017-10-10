@@ -29,7 +29,7 @@ static void	clean_image(t_fractol *all)
 	mlx_put_image_to_window(all->mlx, all->window, all->image.image, 0, 0);
 }
 
-void		*render_part(void *param)
+static void *render_part(void *param)
 {
 	t_param		*p;
 	t_set_pixel	set_pixel;
@@ -50,7 +50,7 @@ void		*render_part(void *param)
 	pthread_exit(NULL);
 }
 
-void		render(t_fractol *all)
+void		render_pthread(t_fractol *all)
 {
 	pthread_t		threads[NUM_THREADS];
 	pthread_attr_t	attr;
@@ -73,4 +73,36 @@ void		render(t_fractol *all)
 	while (++i < NUM_THREADS)
 		pthread_join(threads[i], &res);
 	mlx_put_image_to_window(all->mlx, all->window, all->image.image, 0, 0);
+}
+
+void        render_gpu(t_fractol *all)
+{
+    t_opencl    *opencl;
+    cl_int      ret;
+    int         width;
+    int         height;
+
+    opencl = &all->opencl;
+    width = WIN_WIDTH;
+    height = WIN_HEIGHT;
+    ret = clSetKernelArg(opencl->kernel, 0, sizeof(cl_mem), (void *)&opencl->memobj);
+    ret |= clSetKernelArg(opencl->kernel, 1, sizeof(int), (void *)&width);
+    ret |= clSetKernelArg(opencl->kernel, 2, sizeof(int), (void *)&height);
+    ret |= clSetKernelArg(opencl->kernel, 3, sizeof(double), (void *)&all->move_x);
+    ret |= clSetKernelArg(opencl->kernel, 4, sizeof(double), (void *)&all->move_y);
+    ret |= clSetKernelArg(opencl->kernel, 5, sizeof(double), (void *)&all->map_area_x);
+    ret |= clSetKernelArg(opencl->kernel, 6, sizeof(double), (void *)&all->map_area_y);
+	ret |= clSetKernelArg(opencl->kernel, 7, sizeof(double), (void *)&all->julia_const.r);
+	ret |= clSetKernelArg(opencl->kernel, 8, sizeof(double), (void *)&all->julia_const.i);
+    ret |= clSetKernelArg(opencl->kernel, 9, sizeof(int), (void *)&all->max_iter);
+    if (!ret)
+    {
+        clEnqueueNDRangeKernel(opencl->command_queue, opencl->kernel, 2, NULL,
+                               opencl->global_size, opencl->local_size,
+                               0, NULL, NULL);
+        ret = clEnqueueReadBuffer(opencl->command_queue, opencl->memobj, CL_TRUE, 0,
+                                  WIN_HEIGHT * WIN_HEIGHT * sizeof(int), all->image.ps, 0, NULL, NULL);
+        mlx_put_image_to_window(all->mlx, all->window, all->image.image, 0, 0);
+        ft_putendl("GPU RENDER");
+    }
 }

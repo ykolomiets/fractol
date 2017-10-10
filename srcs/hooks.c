@@ -28,7 +28,7 @@ int	motion_hook(int x, int y, t_fractol *all)
 					((double)y - all->change_julia_y) / WIN_HEIGHT;
 		}
 	}
-	render(all);
+    render_gpu(all);
 	return (0);
 }
 
@@ -53,7 +53,7 @@ int	keys_hook(int keycode, t_fractol *all)
 		all->max_iter += 50;
 	else if (keycode == 27 && all->max_iter > 50)
 		all->max_iter -= 50;
-	render(all);
+    render_gpu(all);
 	return (0);
 }
 
@@ -82,7 +82,7 @@ int	mouse_hook(int button, int x, int y, t_fractol *all)
 		all->move_x += (WIN_WIDTH / 2.0 - x) / (float)all->map_area_x / 2.0;
 		all->move_y += (WIN_HEIGHT / 2.0 - y) / (float)all->map_area_y / 2.0;
 	}
-	render(all);
+    render_gpu(all);
 	return (0);
 }
 
@@ -108,12 +108,12 @@ int	pressed_hook(int keycode, t_fractol *all)
 	else if (keycode == 0)
 		all->move_x -= 0.001;
 	all->julia_const = c;
-	render(all);
+    render_gpu(all);
 	return (0);
 }
 
 int	expose_hook(t_fractol *all)
 {
-	render(all);
+    render_gpu(all);
 	return (0);
 }

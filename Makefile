@@ -42,7 +42,7 @@ INC = -I ./includes -I $(LIBFT_DIR) -I $(LIBMLX_DIR) -I $(LIBMATHX_DIR)
 
 LIBFLAGS = -lft -L $(LIBFT_DIR) -lmlx -L $(LIBMLX_DIR) -L $(LIBMATHX_DIR) -lmathx -lm
 
-FRAMEWORKS = -framework OpenGL -framework AppKit
+FRAMEWORKS = -framework OpenGL -framework AppKit -framework opencl
 
 FLAGS = -Werror -Wextra -Wall
 
